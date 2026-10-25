@@ -14,7 +14,7 @@
     <!-- Open Graph / Social Media Meta -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="TempMailBox - Free Anonymous Temporary Email">
-    <meta property="og:description" content="Protect your personal email from spam. Get a instant disposable email address now.">
+    <meta property="og:description" content="Protect your personal email from spam. Get an instant disposable email address now.">
     <meta property="og:image" content="https://i.ibb.co.com/8nfMwXD7/file-00000000718082118bc607e2815bed5b.png">
 
     <!-- Favicon -->
@@ -138,7 +138,7 @@
             flex: 1;
         }
 
-        /* Main Hero Card */
+        /* Hero Card */
         .hero-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -277,7 +277,7 @@
             margin-top: 15px;
         }
 
-        /* Live Inbox Card */
+        /* Inbox Card */
         .inbox-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -387,7 +387,7 @@
             margin-left: 10px;
         }
 
-        /* SEO Content Sections */
+        /* SEO Content */
         .seo-section {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -518,7 +518,7 @@
             margin-right: auto;
         }
 
-        /* Toast Notification */
+        /* Toast */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -589,7 +589,7 @@
             <div class="hero-title">Your Temporary Email Address</div>
             
             <div class="email-display-box">
-                <div class="email-address" id="email-address">Loading temporary email...</div>
+                <div class="email-address" id="email-address">Generating temp email...</div>
                 <div class="quick-actions">
                     <button class="btn-quick btn-outline" id="qr-btn" title="Show QR Code">
                         <i class="fa-solid fa-qrcode"></i> QR Code
@@ -704,7 +704,7 @@
         <div class="modal-card" style="text-align: center;">
             <div class="modal-header">
                 <h3>Temp Mail QR Code</h3>
-                <button class="modal-close" class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+                <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <p style="color: var(--text-muted); font-size: 0.9rem;">Scan or download this QR code to use your temp mail address on another device.</p>
             <div id="qrcode-container"></div>
@@ -719,7 +719,7 @@
         <div class="modal-card">
             <div class="modal-header">
                 <h3 id="modal-mail-subject">Email Subject</h3>
-                <button class="modal-close" class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+                <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div style="margin-bottom: 15px; font-size: 0.9rem; color: var(--text-muted);">
                 <div><strong>From:</strong> <span id="modal-mail-from">sender@example.com</span></div>
@@ -737,7 +737,7 @@
         <div class="modal-card">
             <div class="modal-header">
                 <h3>Privacy Policy</h3>
-                <button class="modal-close" class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+                <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div style="line-height: 1.6; color: var(--text-muted); font-size: 0.95rem;">
                 <p>At <strong>TempMailBox</strong>, user privacy is our top priority. We do not collect, store, or sell your personal data. All temporary email addresses generated are completely anonymous.</p>
@@ -752,7 +752,7 @@
         <div class="modal-card">
             <div class="modal-header">
                 <h3>Terms of Service</h3>
-                <button class="modal-close" class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+                <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div style="line-height: 1.6; color: var(--text-muted); font-size: 0.95rem;">
                 <p>By using <strong>TempMailBox</strong>, you agree to use our temporary email service only for lawful purposes. Using our disposable email service for illegal activities, spamming, or fraudulent behavior is strictly prohibited.</p>
@@ -773,78 +773,113 @@
         <p>&copy; 2026 TempMailBox. All rights reserved. Free Anonymous Temporary Email Generator.</p>
     </footer>
 
-    <!-- JavaScript Logic -->
+    <!-- JavaScript Logic with Reliable CORS-Friendly Mail.tm API -->
     <script>
-        // API Configuration (Guerrilla Mail API - Reliable & No CORS restriction)
-        const API_BASE = "https://api.guerrillamail.com/site1/pkt.php";
+        const API_BASE = "https://api.mail.tm";
         
         let currentEmail = "";
-        let sidToken = "";
+        let currentPassword = "";
+        let currentToken = "";
         let inboxMessages = [];
-        let autoRefreshTimer = null;
         let progressInterval = null;
         let progressPercent = 100;
 
-        // Elements
+        // UI Elements
         const emailDisplay = document.getElementById("email-address");
         const inboxContent = document.getElementById("inbox-content");
         const inboxCount = document.getElementById("inbox-count");
         const toast = document.getElementById("toast");
         const progressBar = document.getElementById("progress-bar");
 
-        // Web Audio API Notification Sound (Beep)
+        // Notification Sound Effect
         function playNotificationSound() {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
                 osc.type = "sine";
-                osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5 note
+                osc.frequency.setValueAtTime(587.33, ctx.currentTime);
                 gain.gain.setValueAtTime(0.1, ctx.currentTime);
                 osc.connect(gain);
                 gain.connect(ctx.destination);
                 osc.start();
                 osc.stop(ctx.currentTime + 0.25);
-            } catch(e) { console.log("Audio not allowed yet"); }
+            } catch(e) {}
         }
 
         // Show Toast
         function showToast(msg) {
             toast.innerText = msg;
             toast.style.display = "block";
-            setTimeout(() => { toast.style.display = "none"; }, 2000);
+            setTimeout(() => { toast.style.display = "none"; }, 2200);
         }
 
-        // Fetch / Initialize Temp Email Address
-        async function initEmail() {
-            emailDisplay.innerText = "Generating email...";
+        // Get Available Domain
+        async function getDomain() {
+            const res = await fetch(`${API_BASE}/domains`);
+            const data = await res.json();
+            const domains = data['hydra:member'] || data;
+            return domains[0].domain;
+        }
+
+        // Generate Account & Get Token
+        async function initEmail(customUsername = null) {
+            emailDisplay.innerText = "Generating email address...";
             try {
-                const res = await fetch(`${API_BASE}?f=get_email_address`);
-                const data = await res.json();
-                currentEmail = data.email_addr;
-                sidToken = data.sid_token;
+                const domain = await getDomain();
+                const username = customUsername || "user_" + Math.random().toString(36).substring(2, 9);
+                currentEmail = `${username}@${domain}`;
+                currentPassword = "Pass_" + Math.random().toString(36).substring(2, 10) + "!";
+
+                // Create Account
+                const createRes = await fetch(`${API_BASE}/accounts`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ address: currentEmail, password: currentPassword })
+                });
+
+                if (!createRes.ok && !customUsername) {
+                    // Try another random username if taken
+                    return initEmail();
+                }
+
+                // Login & Get Token
+                const tokenRes = await fetch(`${API_BASE}/token`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ address: currentEmail, password: currentPassword })
+                });
+
+                const tokenData = await tokenRes.json();
+                currentToken = tokenData.token;
+
                 emailDisplay.innerText = currentEmail;
                 generateQRCode(currentEmail);
                 fetchInbox();
+                showToast("New email address ready!");
+
             } catch (err) {
-                emailDisplay.innerText = "Error generating email. Click refresh.";
+                console.error("API Error:", err);
+                emailDisplay.innerText = "Error creating mail. Click refresh.";
             }
         }
 
-        // Fetch Inbox Emails
+        // Fetch Messages from Inbox
         async function fetchInbox() {
-            if (!sidToken) return;
+            if (!currentToken) return;
             try {
-                const res = await fetch(`${API_BASE}?f=check_email&seq=0&sid_token=${sidToken}`);
+                const res = await fetch(`${API_BASE}/messages`, {
+                    headers: { "Authorization": `Bearer ${currentToken}` }
+                });
                 const data = await res.json();
-                
-                if (data.list) {
-                    const newCount = data.list.length;
-                    if (newCount > inboxMessages.length && inboxMessages.length > 0) {
+                const messages = data['hydra:member'] || data;
+
+                if (Array.isArray(messages)) {
+                    if (messages.length > inboxMessages.length && inboxMessages.length > 0) {
                         playNotificationSound();
                         showToast("New Email Received!");
                     }
-                    inboxMessages = data.list;
+                    inboxMessages = messages;
                     renderInbox();
                 }
             } catch (err) {
@@ -852,7 +887,7 @@
             }
         }
 
-        // Render Inbox UI
+        // Render Inbox Items
         function renderInbox() {
             inboxCount.innerText = inboxMessages.length;
             if (inboxMessages.length === 0) {
@@ -867,78 +902,78 @@
 
             let html = "";
             inboxMessages.forEach(mail => {
-                // OTP Extract regex test
-                const otpMatch = mail.mail_subject.match(/\b\d{4,6}\b/);
+                const subjectText = mail.subject || "(No Subject)";
+                const senderAddr = mail.from ? (mail.from.address || mail.from.name || "Unknown") : "Unknown";
+                const dateText = mail.createdAt ? new Date(mail.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : "";
+                
+                // Extract OTP Code if present
+                const otpMatch = subjectText.match(/\b\d{4,6}\b/);
                 const otpBadge = otpMatch ? `<span class="otp-badge" onclick="event.stopPropagation(); copyText('${otpMatch[0]}')">OTP: ${otpMatch[0]} <i class="fa-solid fa-copy"></i></span>` : '';
 
                 html += `
-                    <div class="email-item" onclick="openMail('${mail.mail_id}')">
+                    <div class="email-item" onclick="openMail('${mail.id}')">
                         <div class="email-item-info">
-                            <div class="email-item-sender">${escapeHtml(mail.mail_from)} ${otpBadge}</div>
-                            <div class="email-item-subject">${escapeHtml(mail.mail_subject || '(No Subject)')}</div>
+                            <div class="email-item-sender">${escapeHtml(senderAddr)} ${otpBadge}</div>
+                            <div class="email-item-subject">${escapeHtml(subjectText)}</div>
                         </div>
-                        <div class="email-item-date">${escapeHtml(mail.mail_date)}</div>
+                        <div class="email-item-date">${escapeHtml(dateText)}</div>
                     </div>`;
             });
             inboxContent.innerHTML = html;
         }
 
-        // Open & View Email
+        // View Specific Email Detail
         async function openMail(mailId) {
             try {
-                const res = await fetch(`${API_BASE}?f=fetch_email&email_id=${mailId}&sid_token=${sidToken}`);
+                const res = await fetch(`${API_BASE}/messages/${mailId}`, {
+                    headers: { "Authorization": `Bearer ${currentToken}` }
+                });
                 const mail = await res.json();
                 
-                document.getElementById("modal-mail-subject").innerText = mail.mail_subject || "(No Subject)";
-                document.getElementById("modal-mail-from").innerText = mail.mail_from;
-                document.getElementById("modal-mail-date").innerText = mail.mail_date;
-                document.getElementById("modal-mail-body").innerHTML = mail.mail_body || mail.mail_excerpt;
+                document.getElementById("modal-mail-subject").innerText = mail.subject || "(No Subject)";
+                document.getElementById("modal-mail-from").innerText = mail.from ? mail.from.address : "Unknown";
+                document.getElementById("modal-mail-date").innerText = mail.createdAt ? new Date(mail.createdAt).toLocaleString() : "";
+                
+                // Show HTML content if available, otherwise text content
+                const mailBodyContainer = document.getElementById("modal-mail-body");
+                if (mail.html && mail.html.length > 0) {
+                    mailBodyContainer.innerHTML = mail.html[0];
+                } else {
+                    mailBodyContainer.innerText = mail.text || "No message body.";
+                }
                 
                 document.getElementById("mail-modal").style.display = "flex";
             } catch(e) {
-                showToast("Failed to load email message.");
+                showToast("Failed to load message.");
             }
         }
 
-        // Delete Email & Get New One
-        async function deleteEmail() {
-            if(!sidToken) return;
-            emailDisplay.innerText = "Deleting & getting new address...";
-            try {
-                await fetch(`${API_BASE}?f=forget_me&sid_token=${sidToken}`);
+        // Change Email Username
+        function changeEmailUser() {
+            const newUser = prompt("Enter custom username:");
+            if (newUser && newUser.trim().length > 2) {
                 inboxMessages = [];
                 renderInbox();
-                initEmail();
-                showToast("Email deleted & new address created!");
-            } catch(e) {
-                initEmail();
+                initEmail(newUser.trim().toLowerCase());
             }
         }
 
-        // Custom Change Email Username
-        async function changeEmailUser() {
-            const newUser = prompt("Enter desired email username:");
-            if (!newUser) return;
-            try {
-                const res = await fetch(`${API_BASE}?f=set_email_user&email_user=${encodeURIComponent(newUser)}&sid_token=${sidToken}`);
-                const data = await res.json();
-                currentEmail = data.email_addr;
-                emailDisplay.innerText = currentEmail;
-                generateQRCode(currentEmail);
-                showToast("Email address updated!");
-            } catch(e) {
-                showToast("Could not change address.");
-            }
+        // Delete Email & Regenerate
+        function deleteEmail() {
+            inboxMessages = [];
+            renderInbox();
+            initEmail();
         }
 
-        // Helper: Copy Text
+        // Copy Helper
         function copyText(text) {
+            if (!text || text.includes("Generating")) return;
             navigator.clipboard.writeText(text).then(() => {
                 showToast("Copied to clipboard!");
             });
         }
 
-        // Helper: Escape HTML
+        // HTML Escape Helper
         function escapeHtml(str) {
             return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         }
@@ -957,7 +992,7 @@
             });
         }
 
-        // Download QR Code Image
+        // Download QR Code
         document.getElementById("download-qr-btn").addEventListener("click", () => {
             const qrImg = document.querySelector("#qrcode-container img");
             const qrCanvas = document.querySelector("#qrcode-container canvas");
@@ -978,7 +1013,7 @@
             }
         });
 
-        // Timer Progress Loop (5 Seconds)
+        // 5-Second Timer Progress Bar
         function startProgressTimer() {
             progressPercent = 100;
             clearInterval(progressInterval);
@@ -999,7 +1034,7 @@
         document.getElementById("action-delete").onclick = deleteEmail;
         document.getElementById("action-change").onclick = changeEmailUser;
 
-        // Modal Controls
+        // Modals
         document.getElementById("qr-btn").onclick = () => document.getElementById("qr-modal").style.display = "flex";
         document.getElementById("link-privacy").onclick = (e) => { e.preventDefault(); document.getElementById("privacy-modal").style.display = "flex"; };
         document.getElementById("link-terms").onclick = (e) => { e.preventDefault(); document.getElementById("terms-modal").style.display = "flex"; };
@@ -1022,7 +1057,7 @@
             };
         });
 
-        // Theme Toggle Switch
+        // Dark / Light Theme Toggle
         const themeBtn = document.getElementById("theme-btn");
         themeBtn.onclick = () => {
             const currentTheme = document.body.getAttribute("data-theme");
@@ -1035,11 +1070,11 @@
             }
         };
 
-        // Initialize App
+        // App Start
         window.onload = () => {
             initEmail();
             startProgressTimer();
         };
     </script>
 </body>
-</html>
+    </html>
