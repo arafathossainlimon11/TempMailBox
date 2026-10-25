@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TempMailBox - Free Anonymous Temporary Disposable Email Service</title>
+    
+    <!-- Meta SEO Tags -->
+    <meta name="description" content="Get a free temporary disposable email address instantly with TempMailBox. Protect your personal inbox from spam, bots, and phishing. Fast, anonymous, and secure 10-minute mail generator.">
+    <meta name="keywords" content="temp mail, temporary email, disposable email, 10 minute mail, fake email generator, temp inbox, throwaway email, receive otp online, email privacy, anonymous mail, temp mail box, free temp mail">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="TempMailBox">
+    
+    <!-- Open Graph / Social Media Meta -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="TempMailBox - Free Anonymous Temporary Email">
+    <meta property="og:description" content="Protect your personal email from spam. Get a instant disposable email address now.">
+    <meta property="og:image" content="https://i.ibb.co.com/8nfMwXD7/file-00000000718082118bc607e2815bed5b.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co.com/8nfMwXD7/file-00000000718082118bc607e2815bed5b.png">
+    
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- QRCode.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        :root {
+            --bg-body: #0b0f19;
+            --bg-card: #151c2c;
+            --bg-input: #1e293b;
+            --primary: #10b981;
+            --primary-hover: #059669;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            --modal-bg: #151c2c;
+        }
+
+        [data-theme="light"] {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-input: #e2e8f0;
+            --primary: #059669;
+            --primary-hover: #047857;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --modal-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-container img {
+            height: 42px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* Main Hero Card */
+        .hero-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 25px;
+        }
+
+        .hero-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .email-display-box {
+            background-color: var(--bg-input);
+            border: 2px dashed var(--primary);
+            border-radius: 12px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .email-address {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-main);
+            word-break: break-all;
+            flex: 1;
+            text-align: left;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-quick {
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .btn-quick:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--bg-input);
+        }
+
+        /* Action Grid */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        @media (max-width: 650px) {
+            .action-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .btn-action {
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .btn-action:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-action i {
+            font-size: 1.2rem;
+        }
+
+        /* Auto-Refresh Timer Bar */
+        .refresh-progress-container {
+            margin-top: 25px;
+            background: var(--bg-input);
+            height: 6px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .refresh-progress-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 100%;
+            transition: width 0.1s linear;
+        }
+
+        /* Trust Badge */
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 15px;
+        }
+
+        /* Live Inbox Card */
+        .inbox-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .inbox-header {
+            background-color: var(--bg-input);
+            padding: 18px 25px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .inbox-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .inbox-count {
+            background: var(--primary);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .inbox-body {
+            min-height: 220px;
+        }
+
+        .empty-inbox {
+            padding: 50px 20px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .spinner {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Email List Item */
+        .email-item {
+            padding: 18px 25px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            gap: 15px;
+        }
+
+        .email-item:hover {
+            background-color: var(--bg-input);
+        }
+
+        .email-item-info {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .email-item-sender {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .email-item-subject {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .email-item-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .otp-badge {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        /* SEO Content Sections */
+        .seo-section {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 35px 30px;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        .seo-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-main);
+        }
+
+        .seo-section p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-size: 0.98rem;
+        }
+
+        .seo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .seo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .seo-feature-card {
+            background: var(--bg-input);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .seo-feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: var(--bg-input);
+            padding: 16px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 16px 20px;
+            color: var(--text-muted);
+            display: none;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: var(--modal-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            max-width: 550px;
+            width: 100%;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+
+        #qrcode-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #ffffff;
+            border-radius: 12px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--primary);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 2000;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10deg); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            padding: 25px 5%;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo-container">
+            <img src="https://i.ibb.co.com/8nfMwXD7/file-00000000718082118bc607e2815bed5b.png" alt="TempMailBox Logo">
+            <div class="logo-text">Temp<span>MailBox</span></div>
+        </a>
+        <div class="header-actions">
+            <button class="theme-toggle" id="theme-btn" title="Toggle Theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        
+        <!-- Hero Temp Mail Card -->
+        <div class="hero-card">
+            <div class="hero-title">Your Temporary Email Address</div>
+            
+            <div class="email-display-box">
+                <div class="email-address" id="email-address">Loading temporary email...</div>
+                <div class="quick-actions">
+                    <button class="btn-quick btn-outline" id="qr-btn" title="Show QR Code">
+                        <i class="fa-solid fa-qrcode"></i> QR Code
+                    </button>
+                    <button class="btn-quick" id="copy-btn-main">
+                        <i class="fa-solid fa-copy"></i> Copy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Control Buttons -->
+            <div class="action-grid">
+                <button class="btn-action" id="action-copy">
+                    <i class="fa-solid fa-clone"></i> Copy Email
+                </button>
+                <button class="btn-action" id="action-refresh">
+                    <i class="fa-solid fa-rotate-right"></i> Refresh Inbox
+                </button>
+                <button class="btn-action" id="action-change">
+                    <i class="fa-solid fa-pen-to-square"></i> Change Address
+                </button>
+                <button class="btn-action" id="action-delete">
+                    <i class="fa-solid fa-trash-can"></i> Delete Email
+                </button>
+            </div>
+
+            <!-- Auto-Refresh Visual Bar -->
+            <div class="refresh-progress-container" title="Auto-checking inbox every 5s">
+                <div class="refresh-progress-bar" id="progress-bar"></div>
+            </div>
+
+            <div class="trust-badge">
+                <i class="fa-solid fa-shield-halved"></i> 100% Anonymous & Secure — Self-Destructing Messages
+            </div>
+        </div>
+
+        <!-- Live Inbox Section -->
+        <div class="inbox-card">
+            <div class="inbox-header">
+                <div class="inbox-title">
+                    <i class="fa-solid fa-inbox"></i> INBOX
+                    <span class="inbox-count" id="inbox-count">0</span>
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);" id="status-text">
+                    Auto-waiting for incoming emails...
+                </div>
+            </div>
+
+            <div class="inbox-body" id="inbox-content">
+                <div class="empty-inbox">
+                    <i class="fa-solid fa-spinner spinner"></i>
+                    <p>Your inbox is currently empty.</p>
+                    <span style="font-size: 0.85rem;">Waiting for incoming messages...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Article Content Section -->
+        <div class="seo-section">
+            <h2>Free Disposable Temporary Email Generator</h2>
+            <p>Welcome to <strong>TempMailBox</strong>, your ultimate shield against internet spam, unwanted promotional newsletters, and online security threats. Our temporary email generator provides instant, throwaway email addresses that allow you to receive verification codes, OTPs, and sign-up links completely anonymously.</p>
+            
+            <div class="seo-grid">
+                <div class="seo-feature-card">
+                    <h3><i class="fa-solid fa-bolt"></i> Instant Setup</h3>
+                    <p>No registration, no password, and no credit card required. Your temporary inbox is ready the moment you open the page.</p>
+                </div>
+                <div class="seo-feature-card">
+                    <h3><i class="fa-solid fa-user-shield"></i> 100% Privacy Protection</h3>
+                    <p>Keep your personal email address safe from data breaches, hackers, spam lists, and invasive website tracking.</p>
+                </div>
+                <div class="seo-feature-card">
+                    <h3><i class="fa-solid fa-qrcode"></i> Mobile QR Code Access</h3>
+                    <p>Easily transfer your temp mail address to your mobile phone or tablet by scanning or downloading our dynamic QR code.</p>
+                </div>
+                <div class="seo-feature-card">
+                    <h3><i class="fa-solid fa-clock-rotate-left"></i> Auto Self-Destruct</h3>
+                    <p>All incoming emails are automatically deleted after a temporary period, leaving zero digital footprints behind.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO FAQ Section -->
+        <div class="seo-section">
+            <h2>Frequently Asked Questions (FAQ)</h2>
+            <div style="margin-top: 20px;">
+                <div class="faq-item">
+                    <div class="faq-question">What is a temporary disposable email address? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">A temporary disposable email (also known as temp mail, 10-minute mail, or throwaway email) is a short-term mailbox that allows you to receive emails without exposing your real personal email account.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Is TempMailBox completely free to use? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Yes, TempMailBox is 100% free with no hidden subscriptions, no registration forms, and no credit card requirements.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Can I receive verification codes and OTPs? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Yes! Our service supports receiving activation links, one-time passwords (OTPs), and registration emails from standard websites worldwide.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How long do emails stay in my inbox? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Emails remain available while your active browser session is open and are auto-purged to maintain privacy and server efficiency.</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modals -->
+
+    <!-- QR Code Modal -->
+    <div class="modal-overlay" id="qr-modal">
+        <div class="modal-card" style="text-align: center;">
+            <div class="modal-header">
+                <h3>Temp Mail QR Code</h3>
+                <button class="modal-close" class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Scan or download this QR code to use your temp mail address on another device.</p>
+            <div id="qrcode-container"></div>
+            <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+                <button class="btn-quick" id="download-qr-btn"><i class="fa-solid fa-download"></i> Download QR Code</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mail Reader Modal -->
+    <div class="modal-overlay" id="mail-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modal-mail-subject">Email Subject</h3>
+                <button class="modal-close" class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div style="margin-bottom: 15px; font-size: 0.9rem; color: var(--text-muted);">
+                <div><strong>From:</strong> <span id="modal-mail-from">sender@example.com</span></div>
+                <div><strong>Date:</strong> <span id="modal-mail-date">Just now</span></div>
+            </div>
+            <hr style="border: none; border-top: 1px solid var(--border-color); margin-bottom: 15px;">
+            <div id="modal-mail-body" style="line-height: 1.6; word-break: break-word; color: var(--text-main);">
+                Email body content will appear here...
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal-overlay" id="privacy-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Privacy Policy</h3>
+                <button class="modal-close" class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div style="line-height: 1.6; color: var(--text-muted); font-size: 0.95rem;">
+                <p>At <strong>TempMailBox</strong>, user privacy is our top priority. We do not collect, store, or sell your personal data. All temporary email addresses generated are completely anonymous.</p>
+                <br>
+                <p>Emails received are held temporarily in memory and automatically erased. We do not require any personal identification, passwords, or registration details.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div class="modal-overlay" id="terms-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Terms of Service</h3>
+                <button class="modal-close" class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div style="line-height: 1.6; color: var(--text-muted); font-size: 0.95rem;">
+                <p>By using <strong>TempMailBox</strong>, you agree to use our temporary email service only for lawful purposes. Using our disposable email service for illegal activities, spamming, or fraudulent behavior is strictly prohibited.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">Copied to clipboard!</div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#" id="link-privacy">Privacy Policy</a>
+            <span>•</span>
+            <a href="#" id="link-terms">Terms of Service</a>
+        </div>
+        <p>&copy; 2026 TempMailBox. All rights reserved. Free Anonymous Temporary Email Generator.</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // API Configuration (Guerrilla Mail API - Reliable & No CORS restriction)
+        const API_BASE = "https://api.guerrillamail.com/site1/pkt.php";
+        
+        let currentEmail = "";
+        let sidToken = "";
+        let inboxMessages = [];
+        let autoRefreshTimer = null;
+        let progressInterval = null;
+        let progressPercent = 100;
+
+        // Elements
+        const emailDisplay = document.getElementById("email-address");
+        const inboxContent = document.getElementById("inbox-content");
+        const inboxCount = document.getElementById("inbox-count");
+        const toast = document.getElementById("toast");
+        const progressBar = document.getElementById("progress-bar");
+
+        // Web Audio API Notification Sound (Beep)
+        function playNotificationSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = "sine";
+                osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5 note
+                gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.25);
+            } catch(e) { console.log("Audio not allowed yet"); }
+        }
+
+        // Show Toast
+        function showToast(msg) {
+            toast.innerText = msg;
+            toast.style.display = "block";
+            setTimeout(() => { toast.style.display = "none"; }, 2000);
+        }
+
+        // Fetch / Initialize Temp Email Address
+        async function initEmail() {
+            emailDisplay.innerText = "Generating email...";
+            try {
+                const res = await fetch(`${API_BASE}?f=get_email_address`);
+                const data = await res.json();
+                currentEmail = data.email_addr;
+                sidToken = data.sid_token;
+                emailDisplay.innerText = currentEmail;
+                generateQRCode(currentEmail);
+                fetchInbox();
+            } catch (err) {
+                emailDisplay.innerText = "Error generating email. Click refresh.";
+            }
+        }
+
+        // Fetch Inbox Emails
+        async function fetchInbox() {
+            if (!sidToken) return;
+            try {
+                const res = await fetch(`${API_BASE}?f=check_email&seq=0&sid_token=${sidToken}`);
+                const data = await res.json();
+                
+                if (data.list) {
+                    const newCount = data.list.length;
+                    if (newCount > inboxMessages.length && inboxMessages.length > 0) {
+                        playNotificationSound();
+                        showToast("New Email Received!");
+                    }
+                    inboxMessages = data.list;
+                    renderInbox();
+                }
+            } catch (err) {
+                console.error("Inbox fetch error:", err);
+            }
+        }
+
+        // Render Inbox UI
+        function renderInbox() {
+            inboxCount.innerText = inboxMessages.length;
+            if (inboxMessages.length === 0) {
+                inboxContent.innerHTML = `
+                    <div class="empty-inbox">
+                        <i class="fa-solid fa-spinner spinner"></i>
+                        <p>Your inbox is empty.</p>
+                        <span style="font-size: 0.85rem;">Waiting for incoming messages...</span>
+                    </div>`;
+                return;
+            }
+
+            let html = "";
+            inboxMessages.forEach(mail => {
+                // OTP Extract regex test
+                const otpMatch = mail.mail_subject.match(/\b\d{4,6}\b/);
+                const otpBadge = otpMatch ? `<span class="otp-badge" onclick="event.stopPropagation(); copyText('${otpMatch[0]}')">OTP: ${otpMatch[0]} <i class="fa-solid fa-copy"></i></span>` : '';
+
+                html += `
+                    <div class="email-item" onclick="openMail('${mail.mail_id}')">
+                        <div class="email-item-info">
+                            <div class="email-item-sender">${escapeHtml(mail.mail_from)} ${otpBadge}</div>
+                            <div class="email-item-subject">${escapeHtml(mail.mail_subject || '(No Subject)')}</div>
+                        </div>
+                        <div class="email-item-date">${escapeHtml(mail.mail_date)}</div>
+                    </div>`;
+            });
+            inboxContent.innerHTML = html;
+        }
+
+        // Open & View Email
+        async function openMail(mailId) {
+            try {
+                const res = await fetch(`${API_BASE}?f=fetch_email&email_id=${mailId}&sid_token=${sidToken}`);
+                const mail = await res.json();
+                
+                document.getElementById("modal-mail-subject").innerText = mail.mail_subject || "(No Subject)";
+                document.getElementById("modal-mail-from").innerText = mail.mail_from;
+                document.getElementById("modal-mail-date").innerText = mail.mail_date;
+                document.getElementById("modal-mail-body").innerHTML = mail.mail_body || mail.mail_excerpt;
+                
+                document.getElementById("mail-modal").style.display = "flex";
+            } catch(e) {
+                showToast("Failed to load email message.");
+            }
+        }
+
+        // Delete Email & Get New One
+        async function deleteEmail() {
+            if(!sidToken) return;
+            emailDisplay.innerText = "Deleting & getting new address...";
+            try {
+                await fetch(`${API_BASE}?f=forget_me&sid_token=${sidToken}`);
+                inboxMessages = [];
+                renderInbox();
+                initEmail();
+                showToast("Email deleted & new address created!");
+            } catch(e) {
+                initEmail();
+            }
+        }
+
+        // Custom Change Email Username
+        async function changeEmailUser() {
+            const newUser = prompt("Enter desired email username:");
+            if (!newUser) return;
+            try {
+                const res = await fetch(`${API_BASE}?f=set_email_user&email_user=${encodeURIComponent(newUser)}&sid_token=${sidToken}`);
+                const data = await res.json();
+                currentEmail = data.email_addr;
+                emailDisplay.innerText = currentEmail;
+                generateQRCode(currentEmail);
+                showToast("Email address updated!");
+            } catch(e) {
+                showToast("Could not change address.");
+            }
+        }
+
+        // Helper: Copy Text
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("Copied to clipboard!");
+            });
+        }
+
+        // Helper: Escape HTML
+        function escapeHtml(str) {
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // Generate QR Code
+        function generateQRCode(text) {
+            const qrContainer = document.getElementById("qrcode-container");
+            qrContainer.innerHTML = "";
+            new QRCode(qrContainer, {
+                text: text,
+                width: 180,
+                height: 180,
+                colorDark : "#0f172a",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        }
+
+        // Download QR Code Image
+        document.getElementById("download-qr-btn").addEventListener("click", () => {
+            const qrImg = document.querySelector("#qrcode-container img");
+            const qrCanvas = document.querySelector("#qrcode-container canvas");
+            
+            let imageSrc = "";
+            if (qrImg && qrImg.src) {
+                imageSrc = qrImg.src;
+            } else if (qrCanvas) {
+                imageSrc = qrCanvas.toDataURL("image/png");
+            }
+
+            if (imageSrc) {
+                const a = document.createElement("a");
+                a.href = imageSrc;
+                a.download = `tempmailbox-qr-${Date.now()}.png`;
+                a.click();
+                showToast("QR Code Downloaded!");
+            }
+        });
+
+        // Timer Progress Loop (5 Seconds)
+        function startProgressTimer() {
+            progressPercent = 100;
+            clearInterval(progressInterval);
+            progressInterval = setInterval(() => {
+                progressPercent -= 2;
+                if (progressPercent <= 0) {
+                    progressPercent = 100;
+                    fetchInbox();
+                }
+                progressBar.style.width = progressPercent + "%";
+            }, 100);
+        }
+
+        // Event Listeners
+        document.getElementById("copy-btn-main").onclick = () => copyText(currentEmail);
+        document.getElementById("action-copy").onclick = () => copyText(currentEmail);
+        document.getElementById("action-refresh").onclick = () => { fetchInbox(); showToast("Refreshed!"); };
+        document.getElementById("action-delete").onclick = deleteEmail;
+        document.getElementById("action-change").onclick = changeEmailUser;
+
+        // Modal Controls
+        document.getElementById("qr-btn").onclick = () => document.getElementById("qr-modal").style.display = "flex";
+        document.getElementById("link-privacy").onclick = (e) => { e.preventDefault(); document.getElementById("privacy-modal").style.display = "flex"; };
+        document.getElementById("link-terms").onclick = (e) => { e.preventDefault(); document.getElementById("terms-modal").style.display = "flex"; };
+
+        document.querySelectorAll(".modal-overlay").forEach(overlay => {
+            overlay.addEventListener("click", (e) => {
+                if (e.target === overlay || e.target.closest(".modal-close")) {
+                    overlay.style.display = "none";
+                }
+            });
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll(".faq-question").forEach(q => {
+            q.onclick = () => {
+                const ans = q.nextElementSibling;
+                const isVisible = ans.style.display === "block";
+                document.querySelectorAll(".faq-answer").forEach(a => a.style.display = "none");
+                ans.style.display = isVisible ? "none" : "block";
+            };
+        });
+
+        // Theme Toggle Switch
+        const themeBtn = document.getElementById("theme-btn");
+        themeBtn.onclick = () => {
+            const currentTheme = document.body.getAttribute("data-theme");
+            if (currentTheme === "light") {
+                document.body.removeAttribute("data-theme");
+                themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            } else {
+                document.body.setAttribute("data-theme", "light");
+                themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            }
+        };
+
+        // Initialize App
+        window.onload = () => {
+            initEmail();
+            startProgressTimer();
+        };
+    </script>
+</body>
+</html>
