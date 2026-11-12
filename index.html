@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Embed Test</title>
+    <title>MP4 Video Player</title>
 
     <style>
         body {
@@ -17,29 +17,31 @@
 
         .video-container {
             width: 100%;
-            max-width: 510px;
-            aspect-ratio: 510 / 400;
-            margin: 20px auto;
+            max-width: 800px;
+            margin: 30px auto;
         }
 
-        iframe {
+        video {
             width: 100%;
-            height: 100%;
-            border: none;
+            height: auto;
+            display: block;
+            background: black;
+            border-radius: 10px;
         }
     </style>
 </head>
 
 <body>
 
-    <h2>Video Player Test</h2>
+    <h2>My Video Player</h2>
 
     <div class="video-container">
-        <iframe
-            src="https://www.xnxx.com/embedframe/udpblevce41"
-            scrolling="no"
-            allowfullscreen>
-        </iframe>
+        <video controls playsinline preload="metadata">
+            <source
+                src="https://mp4-cdn77.xvideos-cdn.com/ca37846f-f761-4168-8cfc-304ea07d5bcd/6/mp4_sd.mp4?secure=qdranQxyIdzXBGkTQlfHGA==,1794468779"
+                type="video/mp4">
+            আপনার ব্রাউজার ভিডিওটি চালাতে পারছে না।
+        </video>
     </div>
 
 </body>
