@@ -3,47 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MP4 Video Player</title>
+
+    <title>Video Player</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             background: #111827;
             color: white;
             font-family: Arial, sans-serif;
-            text-align: center;
         }
 
-        .video-container {
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .video-box {
             width: 100%;
-            max-width: 800px;
-            margin: 30px auto;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         video {
             width: 100%;
             height: auto;
             display: block;
-            background: black;
-            border-radius: 10px;
+        }
+
+        .ad-section {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .ad-label {
+            color: #9ca3af;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .ad-container {
+            width: 300px;
+            min-height: 250px;
+            max-width: 100%;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
     </style>
 </head>
 
 <body>
 
-    <h2>My Video Player</h2>
+<div class="container">
 
-    <div class="video-container">
+    <h2>Video Player</h2>
+
+    <!-- VIDEO PLAYER -->
+    <div class="video-box">
+
         <video controls playsinline preload="metadata">
+
             <source
                 src="https://mp4-cdn77.xvideos-cdn.com/ca37846f-f761-4168-8cfc-304ea07d5bcd/6/mp4_sd.mp4?secure=qdranQxyIdzXBGkTQlfHGA==,1794468779"
                 type="video/mp4">
-            আপনার ব্রাউজার ভিডিওটি চালাতে পারছে না।
+
+            Your browser does not support HTML5 video.
+
         </video>
+
     </div>
+
+
+    <!-- ADSTERRA 300x250 BANNER -->
+    <div class="ad-section">
+
+        <div class="ad-label">Advertisement</div>
+
+        <div class="ad-container">
+
+            <script>
+                atOptions = {
+                    'key' : 'cf986fb60314a23b372b310ee892495c',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+            </script>
+
+            <script
+                src="https://bauval.org/22/cf986fb60314a23b372b310ee892495c">
+            </script>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 </html>
-https://araplhn.org/4/f40772438c844d1cb86e8b550c1fe521
